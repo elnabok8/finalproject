@@ -135,38 +135,38 @@ public interface WorkOrderController {
 	WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int  timeAllotment,  float costOfService);
 	  @Valid @RequestBody WorkOrder newWorkOrder();
 
-	@Operation(
-	  summary = "Returns an updated work order",
-	  description = "Returns an updated work order given an ID",
-	  responses = {
-	      @ApiResponse(
-	          responseCode = "200",
-	          description = "An updated work order is returned",
-	          content = @Content(
-	              mediaType = "application/json", 
-	              schema = @Schema(implementation = WorkOrder.class))),
-	      @ApiResponse(
-	          responseCode = "400", 
-	          description = "invalid request",  
-	          content = @Content(mediaType = "application/json")),
-	      @ApiResponse(
-	          responseCode = "404", 
-	          description = "no services were found",  
-	          content = @Content(mediaType = "application/json")),
-	      @ApiResponse(
-	          responseCode = "500", 
-	          description = "An unplanned error occurred.",  
-	          content = @Content(mediaType = "application/json"))
-	  }, parameters = {
-	      @Parameter(name = "bikeServiceID", 
-	          allowEmptyValue = false, 
-	          required = false, 
-	          description = "The Service Id within our database")
-	}
-	)
-
-	@PutMapping
-	@ResponseStatus(code = HttpStatus.OK) 
-	WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, float costOfService);
-	  
+//	@Operation(
+//	  summary = "Returns an updated work order",
+//	  description = "Returns an updated work order given an ID",
+//	  responses = {
+//	      @ApiResponse(
+//	          responseCode = "200",
+//	          description = "An updated work order is returned",
+//	          content = @Content(
+//	              mediaType = "application/json", 
+//	              schema = @Schema(implementation = WorkOrder.class))),
+//	      @ApiResponse(
+//	          responseCode = "400", 
+//	          description = "invalid request",  
+//	          content = @Content(mediaType = "application/json")),
+//	      @ApiResponse(
+//	          responseCode = "404", 
+//	          description = "no services were found",  
+//	          content = @Content(mediaType = "application/json")),
+//	      @ApiResponse(
+//	          responseCode = "500", 
+//	          description = "An unplanned error occurred.",  
+//	          content = @Content(mediaType = "application/json"))
+//	  }, parameters = {
+//	      @Parameter(name = "bikeServiceID", 
+//	          allowEmptyValue = false, 
+//	          required = false, 
+//	          description = "The Service Id within our database")
+//	}
+//	)
+//
+//	@PutMapping
+//	@ResponseStatus(code = HttpStatus.OK) 
+//	WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, float costOfService);
+//	  
 }

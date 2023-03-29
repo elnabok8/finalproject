@@ -18,7 +18,7 @@ void deleteWorkOrder(int bikeServiceID);
 
 WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService);
 
-WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService);
+//WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService);
 
 
 

@@ -15,9 +15,9 @@ public class DefaultCustomersController {
 	@Autowired
 	private CustomerService customerService;
 	
-	public List<Customer> fetchAllCustomers() {
-		return customerService.fetchAllCustomers();
-	}
+//	public List<Customer> fetchAllCustomers() {
+//		return customerService.fetchAllCustomers();
+//	}
 	public List <Customer> fetchCustomerByFirstName (String firstName) {
 		return customerService.fetchCustomerbyFirstName(firstName);
 	}

@@ -9,7 +9,7 @@ public interface ServicesDao {
 	List <Services> fetchServicesByCustomer(int customerID);
 
 	
-	Services createService(int serviceID, String serviceDescription, Float cost);
+	Services createService(int serviceID, int customerID, String serviceDescription, Float cost);
 	
 	Services updateServices (int serviceID, int customerID, String description, float cost);
  

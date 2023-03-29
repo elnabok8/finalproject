@@ -110,37 +110,37 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 
 	  }
 		
-	@Override
-	public WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService) {
-		//WorkOrder newWorkOrder = null; //I know that this needs instantiated in order to exist and store the informatin, but I'm not sure
-		//where it ought to be stored.
-		String sql = ""
-			        + "UPDATE bike_service_id "
-			        + "SET "
-			        + "customer_id = :customer_id, "
-			        + "time_allotment = :time_allotment, "
-			        + "cost_of_service = :cost_of_service, "
-			        + "WHERE service_id = :service_id; ";
-			    // @formatter:on
-			    
-			    Map<String, Object> params = new HashMap<>();
-			    params.put("bike_service_id", WorkOrder.getBikeServiceID());
-			    params.put("customer_id", WorkOrder.getCustomerID());
-			    params.put("time_alltoment", WorkOrder.getTimeAllotment());
-			    params.put("cost_of_service", WorkOrder.getCostOfService());
-			    params.put("service_id", WorkOrder.getServiceID());
-			    
-			    if (jdbcTemplate.update(sql, params) == 0) {
-			      throw new NoSuchElementException("update failed");
-			     }
-			       return WorkOrder.builder()
-			    		   .bikeServiceID(bikeServiceID)
-			    		   .customerID(bikeServiceID)
-			    		   .timeAllotment(timeAllotment)
-			    		   .costOfService(costOfService)
-			    		   .serviceID(serviceID)
-			    		   .build();
-	
-	}
+//	@Override
+//	public WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService) {
+//		//WorkOrder newWorkOrder = null; //I know that this needs instantiated in order to exist and store the informatin, but I'm not sure
+//		//where it ought to be stored.
+//		String sql = ""
+//			        + "UPDATE bike_service_id "
+//			        + "SET "
+//			        + "customer_id = :customer_id, "
+//			        + "time_allotment = :time_allotment, "
+//			        + "cost_of_service = :cost_of_service, "
+//			        + "WHERE service_id = :service_id; ";
+//			    // @formatter:on
+//			    
+//			    Map<String, Object> params = new HashMap<>();
+//			    params.put("bike_service_id", WorkOrder.getBikeServiceID());
+//			    params.put("customer_id", WorkOrder.getCustomerID());
+//			    params.put("time_alltoment", WorkOrder.getTimeAllotment());
+//			    params.put("cost_of_service", WorkOrder.getCostOfService());
+//			    params.put("service_id", WorkOrder.getServiceID());
+//			    
+//			    if (jdbcTemplate.update(sql, params) == 0) {
+//			      throw new NoSuchElementException("update failed");
+//			     }
+//			       return WorkOrder.builder()
+//			    		   .bikeServiceID(bikeServiceID)
+//			    		   .customerID(bikeServiceID)
+//			    		   .timeAllotment(timeAllotment)
+//			    		   .costOfService(costOfService)
+//			    		   .serviceID(serviceID)
+//			    		   .build();
+//	
+//	}
 	
 	}

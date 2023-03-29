@@ -21,8 +21,7 @@ public class DefaultWorkOrderService  implements WorkOrderService{
 	@Autowired
 	  private WorkOrderDao workOrderDao;
 
-	  
-	  
+
 	 
 	  public void deleteWorkOrder(int bikeServiceID) {
 	    workOrderDao.deleteWorkOrder(bikeServiceID);
@@ -38,19 +37,21 @@ public class DefaultWorkOrderService  implements WorkOrderService{
 		return workOrder;
 	}
 
-	public WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService) {
-		WorkOrder workOrder = workOrderDao.updateWorkOrder(bikeServiceID, costOfService, costOfService,costOfService, costOfService, workOrder);
-		
-		//I'm not sure why it recognizes "Is empty" on line 34 but not this line
-		if(workOrder.isEmpty()) {
-			String msg = String.format("We have no WorkOrders by this ID");
-			throw new NoSuchElementException(msg);
-		}
-		
-		return workOrderDao.updateWorkOrder(bikeServiceID, customerID, timeAllotment, costOfService)
-				.orElseThrow(() -> new NoSuchElementException("We have no WorkOrders by this ID"));
-	}//same here with the noSuchElement exception
-
+	
+//	   public WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int
+//	  timeAllotment, int costOfService) { // WorkOrder workOrder =
+//	  workOrderDao.updateWorkOrder(bikeServiceID, costOfService,
+//	  costOfService,costOfService, costOfService, workOrder);
+//	  why it recognizes "Is empty" on line 34 but not this line //
+//	 if(workOrder.isEmpty()) {String msg =
+//	  String.format("We have no WorkOrders by this ID"); // throw new
+//	  NoSuchElementException(msg); // }
+//	  
+//	  return workOrderDao.updateWorkOrder(bikeServiceID, customerID,
+//	  timeAllotment, costOfService) // .orElseThrow(() -> new
+//	  NoSuchElementException("We have no WorkOrders by this ID")); 
+//	  with the noSuchElement exception;
+//	 /
 	public WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService) {
 WorkOrder workOrder = workOrderDao.createAWorkOrder(bikeServiceID, costOfService, costOfService, costOfService);
 		

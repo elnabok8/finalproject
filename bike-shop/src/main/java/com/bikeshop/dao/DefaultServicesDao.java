@@ -45,21 +45,23 @@ public class DefaultServicesDao implements ServicesDao {
 		});
 	}
 	
-	public Services createService (int serviceID, String description, Float cost) {
+	public Services createService (int serviceID, int customerID, String description, Float cost) {
 		
 		SqlParams sqlparams = new SqlParams();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		sqlparams.sql = ""
 				+"INSERT into services "
-				+ "customer_fk, serviceDescription, cost) "
+				+ "service_id, customer_id, serviceDescription, cost) "
 				+ "VALUES (:customer_fk, :serviceDescription, :cost)" ;
 				
+		sqlparams.source.addValue("customer_id", customerID);
 		sqlparams.source.addValue("description", description);
 		sqlparams.source.addValue("cost", cost);
 		
 		jdbcTemplate.update(sqlparams.sql,  sqlparams.source, keyHolder);
 		return Services.builder()
 				.serviceID(serviceID)
+				.customerID(customerID)
 				.description(description)
 				.cost(cost)
 				.build();
@@ -71,53 +73,53 @@ public class DefaultServicesDao implements ServicesDao {
 	}
 	
 
-	@Override
-	public List<Services> fetchServicesByCustomer(int customerID) {
-		String sql = ""
-				+ "SELECT * "
-				+ "FROM services "
-				+ "WHERE customer_id = customer_id";
-		Map<String, Object> params = new HashMap<>();
-		return jdbcTemplate.query(sql,  params, new RowMapper<Services>() {
-			public Services mapRow(ResultSet rs, int rowNum) throws SQLException {
-				
-				return Services.builder()
-						.serviceID(rs.getInt("service_id"))
-						.customerID(rs.getInt("customer_id"))
-						.description(rs.getString("description"))
-						.cost(rs.getFloat("cost"))
-						.build();
-			}
-		});
-		
-	}
+//	@Override
+//	public List<Services> fetchServicesByCustomer(int customerID) {
+//		String sql = ""
+//				+ "SELECT * "
+//				+ "FROM services "
+//				+ "WHERE customer_id = customer_id";
+//		Map<String, Object> params = new HashMap<>();
+//		return jdbcTemplate.query(sql,  params, new RowMapper<Services>() {
+//			public Services mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				
+//				return Services.builder()
+//						.serviceID(rs.getInt("service_id"))
+//						.customerID(rs.getInt("customer_id"))
+//						.description(rs.getString("description"))
+//						.cost(rs.getFloat("cost"))
+//						.build();
+//			}
+//		});
+//		
+//	}
 
-	@Override
-	public Services updateServices(int serviceID, int customerID, String description, float cost) {
-		String sql = ""
-				+ "UPDATE services "
-				+ "SET "
-				+ "customer_fk = :customer_fk, "
-				+ "description = :description, "
-				+"cost = :cost, "
-				+ "WHERE services_pk = :services_pk" ;
-		
-		Map <String, Object> params = new HashMap<>();
-		params.put("customer_fk", updatedService.getCustomerID());
-		params.put("description", updatedService.getDescription());
-		params.put("cost", updatedService.getCost());
-		
-		if (jdbcTemplate.update(sql,  params) == 0) {
-			throw new NoSuchElementException("update failed");
-		}
-		
-		return Services.builder()
-				.serviceID(serviceID)
-				.customerID(customerID)
-				.description(description)
-				.cost(cost)
-				.build();
-	}
+//	@Override
+//	public Services updateServices(int serviceID, int customerID, String description, float cost) {
+//		String sql = ""
+//				+ "UPDATE services "
+//				+ "SET "
+//				+ "customer_fk = :customer_fk, "
+//				+ "description = :description, "
+//				+"cost = :cost, "
+//				+ "WHERE services_pk = :services_pk" ;
+//		
+//		Map <String, Object> params = new HashMap<>();
+//		params.put("customer_fk", updatedService.getCustomerID());
+//		params.put("description", updatedService.getDescription());
+//		params.put("cost", updatedService.getCost());
+//		
+//		if (jdbcTemplate.update(sql,  params) == 0) {
+//			throw new NoSuchElementException("update failed");
+//		}
+//		
+//		return Services.builder()
+//				.serviceID(serviceID)
+//				.customerID(customerID)
+//				.description(description)
+//				.cost(cost)
+//				.build();
+//	}
 
 	@Override
 	public void deleteService(int serviceID) {

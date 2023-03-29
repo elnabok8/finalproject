@@ -8,7 +8,7 @@ public interface CustomerService {
 	
 	//Customer Service receives information from Default Customer Controller passes it to Default Customer Service class
 	
-	List<Customer> fetchAllCustomers();
+	// List<Customer> fetchAllCustomers();
 	
 	List <Customer> fetchCustomerbyFirstName (String firstName);
 	

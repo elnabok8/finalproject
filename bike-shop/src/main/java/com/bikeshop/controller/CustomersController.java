@@ -187,7 +187,12 @@ public interface CustomersController {
 	      )
 @PostMapping
 @ResponseStatus(code = HttpStatus.CREATED)
-Customer createCustomer(String firstName, String lastName, String phone);
+Customer createCustomer (
+		@RequestParam(required = false)
+		String firstName, 
+		@RequestParam(required = false)
+		String lastName,
+		@RequestParam String phone);
 	      
 @Operation(
 	      summary = "Updates an existing customer",
@@ -210,10 +215,10 @@ Customer createCustomer(String firstName, String lastName, String phone);
 	          @ApiResponse(
 	              responseCode = "500", 
 	              description = "An unplanned error occurred.",  
-	              content = @Content(mediaType = "application/json")),
+	              content = @Content(mediaType = "application/json"))
 	      }, 
 	          parameters = {
-	              @Parameter(name = "customerID", 
+	              @Parameter(name = "customerID",
 	                  allowEmptyValue = false, 
 	                  required = false, 
 	                  description = "Customer ID")
@@ -222,7 +227,7 @@ Customer createCustomer(String firstName, String lastName, String phone);
 	  @PutMapping
 	  @ResponseStatus(code = HttpStatus.OK)
 	  Customer updateCustomer(                                                                     
-	       int customerPK, 
+	       int customerID, 
 	      @Valid @RequestBody Customer updatedCustomer); 
 	      
 }

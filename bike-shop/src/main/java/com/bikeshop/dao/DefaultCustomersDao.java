@@ -29,31 +29,21 @@ public class DefaultCustomersDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
-	
-	//now connect to the database!
-	
-	public List<Customer> fetchAllCustomers() {
-		log.info("In customer.dao.fetchAllCustomers");
-		
-		//sql code to connect to database
-		
-		String sql = ""
-				+ "SELECT * "
-				+ "FROM customer;";
-		
-		//creates map of customers and returns a builder with all the information from the database
-		
-		return jdbcTemplate.query(sql, new RowMapper<Customer> () {
-			
-			public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return Customer.builder()
-						.customerID(rs.getInt("customer_id"))
-						.firstName(rs.getString("first_name"))
-						.lastName(rs.getString("last_name"))
-						.phoneNumber(rs.getString("phone_number"))
-						.build();
-			}}};
-			
+	/*
+	 * //now connect to the database!
+	 * 
+	 * // public List<Customer> fetchAllCustomers() { //
+	 * log.info("In customer.dao.fetchAllCustomers"); // // //sql code to connect to
+	 * database // // String sql = "" // + "SELECT * " // + "FROM customer;"; // //
+	 * //creates map of customers and returns a builder with all the information
+	 * from the database // // return jdbcTemplate.query(sql, new
+	 * RowMapper<Customer> () { // // public Customer mapRow(ResultSet rs, int
+	 * rowNum) throws SQLException { // return Customer.builder() //
+	 * .customerID(rs.getInt("customer_id")) //
+	 * .firstName(rs.getString("first_name")) //
+	 * .lastName(rs.getString("last_name")) //
+	 * .phoneNumber(rs.getString("phone_number")) // .build(); // }};
+	 */			
 			public Customer createCustomer (String firstName, String lastName, String phoneNumber) {
 				return null;
 			}
@@ -113,7 +103,15 @@ public class DefaultCustomersDao {
 							+"SET "
 							+ "first_name = :first_name, "
 							+ "last_name = :last_name, "
-							+ "phone_number = :phone_number;";
+							+ "phone_number = :phone_number;"
+							+ "WHERE customer_id = :customerid;";
+					
+					Map<String, Object> params = new HashMap<>();
+			
+				    params.put("first_name", updatedCustomer.getFirstName());
+				    params.put("last_name", updatedCustomer.getLastName());
+				    params.put("phone", updatedCustomer.getPhoneNumber());
+				    params.put("customer_id", customerID);
 					
 					if (jdbcTemplate.update( sql,  params) == 0) {
 						throw new NoSuchElementException("update failed"); 
