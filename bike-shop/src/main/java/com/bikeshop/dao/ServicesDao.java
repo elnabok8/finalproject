@@ -11,9 +11,12 @@ public interface ServicesDao {
 	
 	Services createService(int serviceID, int customerID, String serviceDescription, Float cost);
 	
-	Services updateServices (int serviceID, int customerID, String description, float cost);
+	Services updateAService (int serviceID, int customerID, String description, float cost);
  
 	void deleteService(int serviceID);
+
+	List<Services> fetchService(int serviceID);
+
 	
 			
 }

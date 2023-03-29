@@ -13,4 +13,6 @@ public interface CustomersDao {
 	public List<Customer> fetchCustomerByFirstName(String firstName);
 	
 	Customer createCustomer (String firstName, String lastName, String phoneNumber);
+
+	Customer updateACustomer(int customerID, String phoneNumber, String firstName, String lastName);
 }

@@ -20,7 +20,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 
@@ -92,12 +91,20 @@ public interface WorkOrderController {
 	            responseCode = "500", 
 	            description = "An unplanned error occurred.",  
 	            content = @Content(mediaType = "application/json"))
-	       })
+	    },
+	    		 
+	    parameters = {
+		        @Parameter(name = "workOrder", 
+	            allowEmptyValue = false, 
+		            required = false, 
+		            description = "workOrder Id")
+	    }
+	    )
 	    
-	      @DeleteMapping("bike_service_id")
+	      @DeleteMapping("workOrderID")
 	      @ResponseStatus(code = HttpStatus.OK)
 	
-	     void  deleteWorkOrder (int bikeServiceID);
+	     void  deleteWorkOrder ( @RequestParam (required = true) int workOrderID);
 	
 
 
@@ -125,48 +132,79 @@ public interface WorkOrderController {
 	            content = @Content(mediaType = "application/json"))
 },
 	       parameters = {
-	        @Parameter(name = "bikeServiceID", 
+	        @Parameter(name = "workOrderID", 
             allowEmptyValue = false, 
 	            required = false, 
-	            description = "bike service ID")
+	            description = "workOrderID"),
+	        @Parameter(name = "customerID", 
+            allowEmptyValue = false, 
+	            required = false, 
+	            description = "customerID"),
+	        @Parameter(name = "timeAllotment", 
+            allowEmptyValue = false, 
+	            required = false, 
+	            description = "time requirement of service"),
+	        @Parameter(name = "costOfService", 
+            allowEmptyValue = false, 
+	            required = false, 
+	            description = "cost of service"),
 	    })
 	@PutMapping
 	@ResponseStatus(code = HttpStatus.CREATED) 
-	WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int  timeAllotment,  float costOfService);
-	  @Valid @RequestBody WorkOrder newWorkOrder();
+	WorkOrder createAWorkOrder(
+			@RequestParam int workOrderID,
+			@RequestParam int customerID,
+			@RequestParam int  timeAllotment, 
+			@RequestParam float costOfService);
 
-//	@Operation(
-//	  summary = "Returns an updated work order",
-//	  description = "Returns an updated work order given an ID",
-//	  responses = {
-//	      @ApiResponse(
-//	          responseCode = "200",
-//	          description = "An updated work order is returned",
-//	          content = @Content(
-//	              mediaType = "application/json", 
-//	              schema = @Schema(implementation = WorkOrder.class))),
-//	      @ApiResponse(
-//	          responseCode = "400", 
-//	          description = "invalid request",  
-//	          content = @Content(mediaType = "application/json")),
-//	      @ApiResponse(
-//	          responseCode = "404", 
-//	          description = "no services were found",  
-//	          content = @Content(mediaType = "application/json")),
-//	      @ApiResponse(
-//	          responseCode = "500", 
-//	          description = "An unplanned error occurred.",  
-//	          content = @Content(mediaType = "application/json"))
-//	  }, parameters = {
-//	      @Parameter(name = "bikeServiceID", 
-//	          allowEmptyValue = false, 
-//	          required = false, 
-//	          description = "The Service Id within our database")
-//	}
-//	)
-//
-//	@PutMapping
-//	@ResponseStatus(code = HttpStatus.OK) 
-//	WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, float costOfService);
-//	  
+	@Operation(
+	  summary = "Returns an updated work order",
+	  description = "Returns an updated work order given an ID",
+	  responses = {
+	      @ApiResponse(
+	          responseCode = "200",
+	          description = "An updated work order is returned",
+	          content = @Content(
+	              mediaType = "application/json", 
+	              schema = @Schema(implementation = WorkOrder.class))),
+	      @ApiResponse(
+	          responseCode = "400", 
+	          description = "invalid request",  
+	          content = @Content(mediaType = "application/json")),
+	      @ApiResponse(
+	          responseCode = "404", 
+	          description = "no services were found",  
+	          content = @Content(mediaType = "application/json")),
+	      @ApiResponse(
+	          responseCode = "500", 
+	          description = "An unplanned error occurred.",  
+	          content = @Content(mediaType = "application/json"))
+	  }, parameters = {
+	      @Parameter(name = "workOrderID", 
+	          allowEmptyValue = false, 
+	          required = false, 
+	          description = "The workOrder Id within our database"),
+	      @Parameter(name = "customerID", 
+          allowEmptyValue = false, 
+          required = false, 
+          description = "The customer who wants the work done"),
+	      @Parameter(name = "timeAllotment", 
+          allowEmptyValue = false, 
+          required = false, 
+          description = "how much time it takes"),
+	      @Parameter(name = "costOfService", 
+          allowEmptyValue = false, 
+          required = false, 
+          description = "how much the customer will pay")
+	}
+	)
+
+	@PutMapping
+	@ResponseStatus(code = HttpStatus.OK) 
+	WorkOrder updateWorkOrder(
+			@RequestParam int workOrderID, 
+			@RequestParam int customerID, 
+			@RequestParam int timeAllotment,
+			@RequestParam float costOfService);
+	  
 }

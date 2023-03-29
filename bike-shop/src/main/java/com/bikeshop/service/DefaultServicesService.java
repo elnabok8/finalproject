@@ -12,21 +12,12 @@ public class DefaultServicesService implements ServicesService {
 @Autowired
 private ServicesDao servicesDao;
 	
-//@Override
-//	public Services updateServices(int serviceID, int customerID, String description, float cost) {
-//		 Services service;
-//		 if(service.isEmpty()) {
-//			String msg = String.format("We do not have work orders for this customer");
-//			throw new NoSuchElementException(msg);
-//		
-//		try {
-//			return ServicesDao.updateServices(serviceID, customerID, description, cost);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//	}
+@Override
+	public Services updateAService(int serviceID, int customerID, String description, float cost) {
+			
+			return servicesDao.updateAService(serviceID, customerID, description, cost);
+
+	}
 	@Override
 	public Services createService(int serviceID, int customerID, String serviceDescription, float serviceCost) {
 	
@@ -38,12 +29,11 @@ private ServicesDao servicesDao;
 	}
 
 
-	//@Override
-//	public List<Services> fetchService(int serviceID) {
-//		if(service.isEmpty()) {
-//			String msg = , null)
-//		return servicesDao.fetchService(serviceID);
-//	}
+@Override
+	public List<Services> fetchService(int serviceID) {
+	
+		return servicesDao.fetchService(serviceID);
+	}
 }
 
 

@@ -2,8 +2,10 @@ package com.bikeshop.service;
 
 import java.util.List;
 
-import com.bikeshop.entity.Customer;
+import org.springframework.stereotype.Service;
 
+import com.bikeshop.entity.Customer;
+ 
 public interface CustomerService {
 	
 	//Customer Service receives information from Default Customer Controller passes it to Default Customer Service class
@@ -13,6 +15,8 @@ public interface CustomerService {
 	List <Customer> fetchCustomerbyFirstName (String firstName);
 	
 	Customer createCustomer (String firstName, String lastName, String phoneNumber);
+	
+	Customer updateACustomer (int customerID, String phoneNumber, String firstName,  String lastName);
 	
 }
 

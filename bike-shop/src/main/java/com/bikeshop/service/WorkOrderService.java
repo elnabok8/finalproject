@@ -10,7 +10,7 @@ public interface WorkOrderService {
 
 	public void deleteWorkOrder(int bikeServiceID);
 
-//	public WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService);
+	public WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService);
 		
 	public WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int timeAllotment, float costOfService);
 		  

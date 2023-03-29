@@ -48,7 +48,7 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 	    // @formatter:on
 	    
 	    Map<String, Object> params = new HashMap<>();
-	    params.put("customer_id", customerID()); //why doesn't it like customer ID when it likes it on line 40?
+	    params.put("customer_id", customerID); //why doesn't it like customer ID when it likes it on line 40?
 	    
 	    return jdbcTemplate.query(sql, params,
 	        new RowMapper<>() {
@@ -56,7 +56,7 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 	            public WorkOrder mapRow(ResultSet rs, int rowNum) throws SQLException {
 	           // @formatter:off
 	            return WorkOrder.builder()
-	            .bikeServiceID(rs.getInt("bike_service_id"))
+	            .workOrderID(rs.getInt("work_order_id"))
 	            .customerID(rs.getInt("customer_id"))
 	            .costOfService(rs.getFloat("cost_of_service"))
 	            .build(); 
@@ -68,7 +68,7 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 			    KeyHolder keyHolder = new GeneratedKeyHolder();
 			    sqlparams.sql = ""
 			        + "INSERT INTO work_order "
-			        + "(bike_serviceid, customerID, "
+			        + "(work_order_id, customerID, "
 			        + "time_allotment, cost_Of_Service, serviceID) VALUES"
 			        + "(:bike_serviceID, :customerID,"
 			        + ":timeallotment, :costOfService, :serviceID)";
@@ -83,7 +83,7 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 			    
 			    jdbcTemplate.update(sqlparams.sql, sqlparams.source, keyHolder);
 			    return WorkOrder.builder()
-			        .bikeServiceID(keyHolder.getKey().intValue())
+			        .workOrderID(keyHolder.getKey().intValue())
 			        .customerID(customerID)
 			        .timeAllotment(timeAllotment)
 			        .costOfService(costOfService)
@@ -109,38 +109,29 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 	    if (jdbcTemplate.update(sql,  params) == 0) throw new NoSuchElementException();
 
 	  }
+	@Override
+	public WorkOrder updateWorkOrder(int workOrderID, int customerID, int timeAllotment, int costOfService) {
+		String sql = ""
+	        + "UPDATE workOrderID "
+		        + "SET "
+		        + "customer_id = :customer_id, "
+		        + "time_allotment = :time_allotment, "
+		        + "cost_of_service = :cost_of_service, "
+		        + "WHERE service_id = :service_id; ";
 		
-//	@Override
-//	public WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService) {
-//		//WorkOrder newWorkOrder = null; //I know that this needs instantiated in order to exist and store the informatin, but I'm not sure
-//		//where it ought to be stored.
-//		String sql = ""
-//			        + "UPDATE bike_service_id "
-//			        + "SET "
-//			        + "customer_id = :customer_id, "
-//			        + "time_allotment = :time_allotment, "
-//			        + "cost_of_service = :cost_of_service, "
-//			        + "WHERE service_id = :service_id; ";
-//			    // @formatter:on
-//			    
-//			    Map<String, Object> params = new HashMap<>();
-//			    params.put("bike_service_id", WorkOrder.getBikeServiceID());
-//			    params.put("customer_id", WorkOrder.getCustomerID());
-//			    params.put("time_alltoment", WorkOrder.getTimeAllotment());
-//			    params.put("cost_of_service", WorkOrder.getCostOfService());
-//			    params.put("service_id", WorkOrder.getServiceID());
-//			    
-//			    if (jdbcTemplate.update(sql, params) == 0) {
-//			      throw new NoSuchElementException("update failed");
-//			     }
-//			       return WorkOrder.builder()
-//			    		   .bikeServiceID(bikeServiceID)
-//			    		   .customerID(bikeServiceID)
-//			    		   .timeAllotment(timeAllotment)
-//			    		   .costOfService(costOfService)
-//			    		   .serviceID(serviceID)
-//			    		   .build();
-//	
-//	}
+		Map<String, Object> params = new HashMap<>();
+	    params.put("work_order_id", workOrderID);
+	    params.put("customer_id", customerID);
+	    params.put("time_alltoment", timeAllotment);
+	    params.put("cost_of_service", costOfService);
+	    params.put("service_id", serviceID);
+	    return WorkOrder.builder()
+	    		   .workOrderID(workOrderID)
+	    		   .customerID(customerID)
+	    		   .timeAllotment(timeAllotment)
+	    		   .costOfService(costOfService)
+	    		   .serviceID(serviceID)
+	    		   .build();
+	}
 	
 	}

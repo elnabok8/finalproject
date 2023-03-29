@@ -23,25 +23,26 @@ public class DefaultServicesController implements ServicesController {
 	private ServicesService servicesService;
 
 
-//
-//public Services updateServices(int serviceID, @Valid ServicesController updatedServices) {
-//	return servicesService.updateServices(serviceID, updatedServices);
-//}
-
-
 public void  deleteService(int serviceID) {
 	servicesService.deleteService(serviceID);
 }
 
-//@Override
-//public List<Services> fetchService(int serviceID) {
-//	return servicesService.fetchService(serviceID);
-//}
+@Override
+public List<Services> fetchService(int serviceID) {
+	return servicesService.fetchService(serviceID);
+}
 
 @Override
 public Services createService(int serviceID, int customerID, String serviceDescription, float serviceCost) {
 	return servicesService.createService(serviceID, customerID, serviceDescription, serviceCost);
 }
+
+@Override
+public Services updateAService(int serviceID, int customerID, String serviceDescription, float serviceCost) {
+	return servicesService.updateAService(serviceID, customerID, serviceDescription, serviceCost);
+}
+
+
 
 
 }

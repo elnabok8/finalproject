@@ -17,16 +17,16 @@ import lombok.extern.slf4j.Slf4j;
 
 
 public class DefaultWorkOrderService  implements WorkOrderService{
-	
+	WorkOrder workOrder;
 	@Autowired
 	  private WorkOrderDao workOrderDao;
 
 
 	 
-	  public void deleteWorkOrder(int bikeServiceID) {
-	    workOrderDao.deleteWorkOrder(bikeServiceID);
+	  public void deleteWorkOrder(int workOrderID) {
+	    workOrderDao.deleteWorkOrder(workOrderID);
 	  }
-
+@Override
 	public List<WorkOrder> fetchWorkOrderByCustomer(int customerID) {
 		List<WorkOrder> workOrder = workOrderDao.fetchWorkOrderByCustomer(customerID);
 		
@@ -37,31 +37,15 @@ public class DefaultWorkOrderService  implements WorkOrderService{
 		return workOrder;
 	}
 
-	
-//	   public WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int
-//	  timeAllotment, int costOfService) { // WorkOrder workOrder =
-//	  workOrderDao.updateWorkOrder(bikeServiceID, costOfService,
-//	  costOfService,costOfService, costOfService, workOrder);
-//	  why it recognizes "Is empty" on line 34 but not this line //
-//	 if(workOrder.isEmpty()) {String msg =
-//	  String.format("We have no WorkOrders by this ID"); // throw new
-//	  NoSuchElementException(msg); // }
-//	  
-//	  return workOrderDao.updateWorkOrder(bikeServiceID, customerID,
-//	  timeAllotment, costOfService) // .orElseThrow(() -> new
-//	  NoSuchElementException("We have no WorkOrders by this ID")); 
-//	  with the noSuchElement exception;
-//	 /
-	public WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService) {
-WorkOrder workOrder = workOrderDao.createAWorkOrder(bikeServiceID, costOfService, costOfService, costOfService);
-		
-		return workOrderDao.createAWorkOrder(bikeServiceID, costOfService, costOfService, costOfService);
+@Override
+	public WorkOrder createAWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService) {
+	WorkOrder workOrder = workOrderDao.createAWorkOrder(workOrderID, customerID, timeAllotment, timeAllotment);
+		return workOrder;
 	}
 
 	@Override
-	public WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int timeAllotment, float costOfService) {
-	WorkOrder workOrder = workOrderDao.createAWorkOrder(bikeServiceID, customerID, timeAllotment, timeAllotment);
-		return workOrder;
+	public WorkOrder updateWorkOrder(int workOrderID, int customerID, int timeAllotment, int costOfService) {
+	return workOrderDao.updateWorkOrder(workOrderID, customerID, timeAllotment, costOfService);
 	}
 
 

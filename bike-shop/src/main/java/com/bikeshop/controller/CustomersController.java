@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.bikeshop.entity.Customer;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 
@@ -192,7 +191,7 @@ Customer createCustomer (
 		String firstName, 
 		@RequestParam(required = false)
 		String lastName,
-		@RequestParam String phone);
+		@RequestParam (required = false) String phone);
 	      
 @Operation(
 	      summary = "Updates an existing customer",
@@ -217,18 +216,37 @@ Customer createCustomer (
 	              description = "An unplanned error occurred.",  
 	              content = @Content(mediaType = "application/json"))
 	      }, 
-	          parameters = {
-	              @Parameter(name = "customerID",
-	                  allowEmptyValue = false, 
-	                  required = false, 
-	                  description = "Customer ID")
+	              parameters = {
+	            		  @Parameter(name = "customerID",
+	            				  allowEmptyValue = false,
+	            				  required = false,
+	            				  description = "customer identification in the database"),
+	            		  @Parameter(name = "firstName", 
+	        	              allowEmptyValue = false, 
+	        	              required = false, 
+	        	              description = "Customer's first name"),
+	        	          @Parameter(name = "lastName", 
+	        	          allowEmptyValue = false, 
+	        	          required = false, 
+	        	          description = "Customer's last name"),
+	        	          @Parameter(name = "phoneNumber", 
+	        	          allowEmptyValue = false, 
+	        	          required = false, 
+	        	          description = "Customer's phone number")
 	      }
 	  )
 	  @PutMapping
 	  @ResponseStatus(code = HttpStatus.OK)
-	  Customer updateCustomer(                                                                     
+	  Customer updateACustomer(
+			  @RequestParam (required = false)
 	       int customerID, 
-	      @Valid @RequestBody Customer updatedCustomer); 
+	      @RequestParam (required = false)
+			  String phoneNumber,
+			  @RequestParam (required = false)
+			  String firstName,
+			  @RequestParam (required = false)
+			  String lastName);
+	     
 	      
 }
 

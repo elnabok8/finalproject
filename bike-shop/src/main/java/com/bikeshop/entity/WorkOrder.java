@@ -16,7 +16,7 @@ package com.bikeshop.entity;
 		
 	//these are labels as to what different variables are in the Bike Services Table
 		
-		private int bikeServiceID;
+		private int workOrderID;
 		private int customerID;
 		private int timeAllotment;
 		private float costOfService;

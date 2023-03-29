@@ -4,17 +4,19 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bikeshop.dao.CustomersDao;
 import com.bikeshop.entity.Customer;
+
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+@Service
 
 public class DefaultCustomerService implements CustomerService {
 	@Autowired
 	private CustomersDao customersDao;
 
-//	List<Customer> fetchAllCustomers() {
-//		return customersDao.fetchAllCustomers();
-//	}
 	
 	
 	public List <Customer> fetchCustomerbyFirstName (String firstName){
@@ -28,4 +30,9 @@ public class DefaultCustomerService implements CustomerService {
 	public Customer createCustomer (String firstName, String lastName, String phoneNumber) {
 	return customersDao.createCustomer(firstName, lastName, phoneNumber);
 }
+
+	@Override
+	public Customer updateACustomer(int customerID, String phoneNumber, String firstName, String lastName) {
+		return customersDao.updateACustomer(customerID, phoneNumber, firstName, lastName);
+	}
 }

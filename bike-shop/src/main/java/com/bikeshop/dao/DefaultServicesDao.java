@@ -73,53 +73,53 @@ public class DefaultServicesDao implements ServicesDao {
 	}
 	
 
-//	@Override
-//	public List<Services> fetchServicesByCustomer(int customerID) {
-//		String sql = ""
-//				+ "SELECT * "
-//				+ "FROM services "
-//				+ "WHERE customer_id = customer_id";
-//		Map<String, Object> params = new HashMap<>();
-//		return jdbcTemplate.query(sql,  params, new RowMapper<Services>() {
-//			public Services mapRow(ResultSet rs, int rowNum) throws SQLException {
-//				
-//				return Services.builder()
-//						.serviceID(rs.getInt("service_id"))
-//						.customerID(rs.getInt("customer_id"))
-//						.description(rs.getString("description"))
-//						.cost(rs.getFloat("cost"))
-//						.build();
-//			}
-//		});
-//		
-//	}
+	@Override
+	public List<Services> fetchServicesByCustomer(int customerID) {
+		String sql = ""
+				+ "SELECT * "
+				+ "FROM services "
+				+ "WHERE customer_id = customer_id";
+		Map<String, Object> params = new HashMap<>();
+		return jdbcTemplate.query(sql,  params, new RowMapper<Services>() {
+			public Services mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				return Services.builder()
+						.serviceID(rs.getInt("service_id"))
+						.customerID(rs.getInt("customer_id"))
+						.description(rs.getString("description"))
+						.cost(rs.getFloat("cost"))
+						.build();
+			}
+		});
+		
+	}
 
-//	@Override
-//	public Services updateServices(int serviceID, int customerID, String description, float cost) {
-//		String sql = ""
-//				+ "UPDATE services "
-//				+ "SET "
-//				+ "customer_fk = :customer_fk, "
-//				+ "description = :description, "
-//				+"cost = :cost, "
-//				+ "WHERE services_pk = :services_pk" ;
-//		
-//		Map <String, Object> params = new HashMap<>();
-//		params.put("customer_fk", updatedService.getCustomerID());
-//		params.put("description", updatedService.getDescription());
-//		params.put("cost", updatedService.getCost());
-//		
-//		if (jdbcTemplate.update(sql,  params) == 0) {
-//			throw new NoSuchElementException("update failed");
-//		}
-//		
-//		return Services.builder()
-//				.serviceID(serviceID)
-//				.customerID(customerID)
-//				.description(description)
-//				.cost(cost)
-//				.build();
-//	}
+	@Override
+	public Services updateAService(int serviceID, int customerID, String description, float cost) {
+		String sql = ""
+				+ "UPDATE services "
+				+ "SET "
+				+ "customer_id = :customer_id, "
+				+ "description = :description, "
+				+"cost = :cost, "
+				+ "WHERE service_id = :service_id" ;
+		
+		Map <String, Object> params = new HashMap<>();
+		params.put("customer_id",customerID);
+		params.put("description", description);
+		params.put("cost", cost);
+		
+		if (jdbcTemplate.update(sql,  params) == 0) {
+			throw new NoSuchElementException("update failed");
+		}
+		
+		return Services.builder()
+				.serviceID(serviceID)
+				.customerID(customerID)
+				.description(description)
+				.cost(cost)
+				.build();
+	}
 
 	@Override
 	public void deleteService(int serviceID) {
@@ -129,4 +129,24 @@ String sql = ""
 
 
 }
+
+	@Override
+	public List<Services> fetchService(int serviceID) {
+		String sql = ""
+				+ "SELECT * "
+				+ "WHERE service_id = :service_id";
+		
+		Map <String, Object> params = new HashMap<>();
+		params.get("customer_id",customerID);
+		params.get("description", description);
+		params.get("cost", cost);
+		
+		return Services.builder()
+				.serviceID(serviceID)
+				.customerID(customerID)
+				.description(description)
+				.cost(cost)
+				.build();
+				;
+	}
 }

@@ -96,32 +96,31 @@ public class DefaultCustomersDao {
 					MapSqlParameterSource source = new MapSqlParameterSource();
 				}
 				
-				public Customer updateACustomer (int customerID, Customer updatedCustomer) {
+				public Customer updateACustomer (int customerID, String phoneNumber, String firstName, String lastName) {
 					
 					String sql = ""
 							+"UPDATE customer "
 							+"SET "
 							+ "first_name = :first_name, "
 							+ "last_name = :last_name, "
-							+ "phone_number = :phone_number;"
+							+ "phone_number = :phone_number "
 							+ "WHERE customer_id = :customerid;";
 					
 					Map<String, Object> params = new HashMap<>();
 			
-				    params.put("first_name", updatedCustomer.getFirstName());
-				    params.put("last_name", updatedCustomer.getLastName());
-				    params.put("phone", updatedCustomer.getPhoneNumber());
+				    params.put("first_name", firstName);
+				    params.put("last_name", lastName);
+				    params.put("phone", phoneNumber);
 				    params.put("customer_id", customerID);
 					
 					if (jdbcTemplate.update( sql,  params) == 0) {
-						throw new NoSuchElementException("update failed"); 
+						throw new NoSuchElementException("update failed");};
 					 return Customer.builder()
 							.customerID(customerID)
-							.firstName(updatedCustomer.getFirstName())
-							.lastName(updatedCustomer.getLastName())
-							.phoneNumber(updatedCustomer.getPhoneNumber())
+							.firstName(firstName)
+							.lastName(lastName)
+							.phoneNumber(phoneNumber)
 							.build();
 					};
 				
-				
-			}}
+			}
