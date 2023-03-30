@@ -14,7 +14,7 @@ public interface ServicesService {
 
 	public void deleteService(int serviceID);
 
-	public List<Services> fetchService(int serviceID);
+	public List<Services> fetchService(int serviceID, int customerID, String description, float cost);
 
 	public Services updateAService(int serviceID, int customerID, String serviceDescription, float serviceCost);
 

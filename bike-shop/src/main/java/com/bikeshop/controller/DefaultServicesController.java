@@ -28,8 +28,8 @@ public void  deleteService(int serviceID) {
 }
 
 @Override
-public List<Services> fetchService(int serviceID) {
-	return servicesService.fetchService(serviceID);
+public List<Services> fetchService(int serviceID, int customerID, String description, float cost) {
+	return servicesService.fetchService(serviceID, customerID, description, cost);
 }
 
 @Override

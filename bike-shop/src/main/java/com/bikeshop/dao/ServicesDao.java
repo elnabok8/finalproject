@@ -15,7 +15,7 @@ public interface ServicesDao {
  
 	void deleteService(int serviceID);
 
-	List<Services> fetchService(int serviceID);
+	List<Services> fetchService(int serviceID,  int customerID, String description, float cost);
 
 	
 			

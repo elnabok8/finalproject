@@ -29,9 +29,9 @@ private ServicesDao servicesDao;
 
 
 @Override
-	public List<Services> fetchService(int serviceID) {
+	public List<Services> fetchService(int serviceID,  int customerID, String description, float cost) {
 	
-		return servicesDao.fetchService(serviceID);
+		return servicesDao.fetchService(serviceID, customerID, description, cost);
 	}
 }
 

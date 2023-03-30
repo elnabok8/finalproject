@@ -2,6 +2,7 @@ package com.bikeshop.dao;
 
 import static org.mockito.Mockito.description;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -18,7 +19,10 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import com.bikeshop.entity.Services;
+
+import lombok.extern.slf4j.Slf4j;
 @Component
+@Slf4j
 public class DefaultServicesDao implements ServicesDao {
 	
 	@Autowired
@@ -52,9 +56,9 @@ public class DefaultServicesDao implements ServicesDao {
 		SqlParams sqlparams = new SqlParams();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		sqlparams.sql = ""
-				+"INSERT into services "
-				+ "service_id, customer_id, serviceDescription, cost) "
-				+ "VALUES (:customer_fk, :serviceDescription, :cost)" ;
+				+" INSERT into services "
+				+ " (customer_id, serviceDescription, cost) "
+				+ " VALUES (:customer_fk, :serviceDescription, :cost)" ;
 				
 		sqlparams.source.addValue("customer_id", customerID);
 		sqlparams.source.addValue("description", description);
@@ -133,22 +137,29 @@ String sql = ""
 }
 
 	@Override
-	public List<Services> fetchService(int serviceID) {
+	public List<Services> fetchService(int serviceID,  int customerID, String description, float cost) {
 		String sql = ""
 				+ "SELECT * "
 				+ "WHERE service_id = :service_id";
 		
 		Map <String, Object> params = new HashMap<>();
-		params.get("customer_id",customerID);
-		params.get("description", description);
-		params.get("cost", cost);
+		params.put("service_id", serviceID);
+		
+		return jdbcTemplate.query(sql, params, new RowMapper <>() {
+
+			@Override
+			public Services mapRow(ResultSet rs, int rowNum)
+			throws SQLException {
+				//@formatter:off
 		
 		return Services.builder()
 				.serviceID(serviceID)
-				.customerID(customerID)
-				.description(description)
-				.cost(cost)
+				.customerID(rs.getInt(customerID))
+				.description(rs.getString(description))
+				.cost(rs.getFloat(cost))
 				.build();
-				;
+		//@formatter:on
 	}
+});
+}
 }

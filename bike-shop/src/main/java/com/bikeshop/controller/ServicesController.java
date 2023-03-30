@@ -45,14 +45,39 @@ public interface ServicesController {
 					@ApiResponse (
 						responseCode = "500",
 							description = "Unplanned error",
-							content = @Content (mediaType = "application/json")),
+							content = @Content (mediaType = "application/json"))
+	}, 
+			parameters = {
+					@Parameter (
+					name = "serviceID",
+							allowEmptyValue = false,
+							required = false,
+							description = "service id number in database"),
+					@Parameter (
+							name = "customerID",
+									allowEmptyValue = false,
+									required = false,
+									description = "customerID number in database"),
+					@Parameter (
+							name = "description",
+									allowEmptyValue = false,
+									required = false,
+									description = "description of the service"),
+					@Parameter (
+							name = "cost",
+									allowEmptyValue = false,
+									required = false,
+									description = "cost of the service")
+
+
+
 	}
 			)
 	@GetMapping("/fetch service")
 			@ResponseStatus(code = HttpStatus.OK)
 	
 	List<Services> fetchService(
-			@RequestParam(required = false) int serviceID);
+			@RequestParam(required = false) int serviceID, int customerID, String description, float cost);
 	
 	
 	@Operation(
@@ -86,7 +111,18 @@ public interface ServicesController {
 					@Parameter(name = "serviceID",
 							allowEmptyValue = false,
 							description = "The service ID in the database"),
-			})
+			}) @Parameter (name = "customerID",
+					allowEmptyValue = false,
+					required = false,
+					description = "custcomerID number in database")
+	@Parameter (name = "serviceDescription",
+			allowEmptyValue = false,
+			required = false,
+			description = "details about the service")
+			@Parameter (name = "serviceCost",
+				allowEmptyValue = false,
+				required = false,
+				description = "how much is the service")
 			
 			@PutMapping
 			@ResponseStatus(code = HttpStatus.OK)
