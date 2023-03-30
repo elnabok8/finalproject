@@ -2,7 +2,9 @@ package com.bikeshop.dao;
 
 import java.util.List;
 
+
 import com.bikeshop.entity.Customer;
+
 
 public interface CustomersDao {
 	

@@ -29,21 +29,6 @@ public class DefaultCustomersDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
-	/*
-	 * //now connect to the database!
-	 * 
-	 * // public List<Customer> fetchAllCustomers() { //
-	 * log.info("In customer.dao.fetchAllCustomers"); // // //sql code to connect to
-	 * database // // String sql = "" // + "SELECT * " // + "FROM customer;"; // //
-	 * //creates map of customers and returns a builder with all the information
-	 * from the database // // return jdbcTemplate.query(sql, new
-	 * RowMapper<Customer> () { // // public Customer mapRow(ResultSet rs, int
-	 * rowNum) throws SQLException { // return Customer.builder() //
-	 * .customerID(rs.getInt("customer_id")) //
-	 * .firstName(rs.getString("first_name")) //
-	 * .lastName(rs.getString("last_name")) //
-	 * .phoneNumber(rs.getString("phone_number")) // .build(); // }};
-	 */			
 			public Customer createCustomer (String firstName, String lastName, String phoneNumber) {
 				return null;
 			}
