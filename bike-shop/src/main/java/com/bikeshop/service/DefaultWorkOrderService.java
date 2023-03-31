@@ -2,10 +2,8 @@ package com.bikeshop.service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import com.bikeshop.dao.WorkOrderDao;
 import com.bikeshop.entity.WorkOrder;
@@ -44,7 +42,7 @@ public class DefaultWorkOrderService  implements WorkOrderService{
 	}
 
 	@Override
-	public WorkOrder updateWorkOrder(int workOrderID, int customerID, int timeAllotment, int costOfService) {
+	public WorkOrder updateWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService) {
 	return workOrderDao.updateWorkOrder(workOrderID, customerID, timeAllotment, costOfService);
 	}
 

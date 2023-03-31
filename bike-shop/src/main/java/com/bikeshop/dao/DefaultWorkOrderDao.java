@@ -63,7 +63,7 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 	          }
 	    });    
 	  }
-			public WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int timeAllotment, int costOfService) {
+			public WorkOrder createAWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService) {
 				SqlParams sqlparams = new SqlParams();
 			    KeyHolder keyHolder = new GeneratedKeyHolder();
 			    sqlparams.sql = ""
@@ -73,7 +73,7 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 			        + "(:bike_serviceID, :customerID,"
 			        + ":timeallotment, :costOfService, :serviceID)";
 
-			    sqlparams.source.addValue("bike_serviceid", bikeServiceID);
+			    sqlparams.source.addValue("work_order_id", workOrderID);
 			    sqlparams.source.addValue("customerID", customerID);
 			    sqlparams.source.addValue("time_allotment", (timeAllotment));
 			    sqlparams.source.addValue("cost_of_service", costOfService);
@@ -110,7 +110,7 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 
 	  }
 	@Override
-	public WorkOrder updateWorkOrder(int workOrderID, int customerID, int timeAllotment, int costOfService) {
+	public WorkOrder updateWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService) {
 		String sql = ""
 	        + "UPDATE workOrderID "
 		        + "SET "
@@ -133,5 +133,6 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 	    		   .serviceID(serviceID)
 	    		   .build();
 	}
+	
 	
 	}
