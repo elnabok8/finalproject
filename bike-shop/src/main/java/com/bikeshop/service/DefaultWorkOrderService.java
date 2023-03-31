@@ -12,7 +12,7 @@ import com.bikeshop.entity.WorkOrder;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
+@Service
 @Slf4j
 
 

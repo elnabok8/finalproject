@@ -3,10 +3,11 @@ package com.bikeshop.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bikeshop.dao.ServicesDao;
 import com.bikeshop.entity.Services;
-
+@Service
 public class DefaultServicesService implements ServicesService {
 @Autowired
 private ServicesDao servicesDao;

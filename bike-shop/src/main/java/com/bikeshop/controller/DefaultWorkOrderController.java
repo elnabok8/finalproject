@@ -21,8 +21,8 @@ public class DefaultWorkOrderController implements WorkOrderController {
 		workOrderService.deleteWorkOrder(serviceID);
 	}
 @Override
-	public WorkOrder updateWorkOrder(int bikeServiceID, int customerID, int timeAllotment, float costOfService){
-		return workOrderService.createAWorkOrder(bikeServiceID, customerID, timeAllotment, costOfService);
+	public WorkOrder updateWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService){
+		return workOrderService.updateWorkOrder(workOrderID, customerID, timeAllotment, costOfService);
 	}
 		@Override
 	public WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int timeAllotment, float costOfService) {
