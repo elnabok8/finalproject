@@ -29,7 +29,7 @@ public class DefaultCustomerService implements CustomerService {
 }
 
 	@Override
-	public Customer updateACustomer(int customerID, String phoneNumber, String firstName, String lastName) {
-		return customersDao.updateACustomer(customerID, phoneNumber, firstName, lastName);
+	public Customer updateACustomer(int customerID, String phone, String firstName, String lastName) {
+		return customersDao.updateACustomer(customerID, phone, firstName, lastName);
 	}
 }

@@ -35,6 +35,9 @@ public class DefaultCustomersDao implements CustomersDao{
 						+"INSERT INTO customer "
 						+ "(first_name, last_name, phone) "
 						+ "VALUES (:first_name, :last_name, :phone)" ;
+				
+			
+			
 						
 				//Map<String, Object> params = new HashMap<>();
 //				params.put("first_name", firstName);
@@ -49,7 +52,7 @@ public class DefaultCustomersDao implements CustomersDao{
 						.customerID(keyholder.getKey().intValue())
 						.firstName(firstName)
 						.lastName(lastName)
-						.phoneNumber(phone)
+						.phone(phone)
 						.build();
 						}
 			class SqlParams {
@@ -77,7 +80,7 @@ public class DefaultCustomersDao implements CustomersDao{
 								.customerID(rs.getInt("customer_ID"))
 								.firstName(rs.getString("first_name"))
 								.lastName(rs.getString("last_name"))
-								.phoneNumber(rs.getString("phone_number"))
+								.phone(rs.getString("phone_number"))
 								.build();
 					}});
 			}
@@ -97,27 +100,25 @@ public class DefaultCustomersDao implements CustomersDao{
 								.customerID(rs.getInt("customer_ID"))
 								.firstName(rs.getString("first_name"))
 								.lastName(rs.getString("last_name"))
-								.phoneNumber(rs.getString("phone_number))"))
+								.phone(rs.getString("phone_number))"))
 								.build();
 					}});
 			}
 				
 				
-				public Customer updateACustomer (int customerID, String phoneNumber, String firstName, String lastName) {
+				public Customer updateACustomer (int customerID, String phone, String firstName, String lastName) {
 					
 					String sql = ""
 							+"UPDATE customer "
 							+"SET "
-							+ "first_name = :first_name, "
-							+ "last_name = :last_name, "
-							+ "phone_number = :phone_number "
-							+ "WHERE customer_id = :customerid;";
+							+ "first_name = :first_name, last_name = :last_name, phone = :phone "
+							+ "WHERE (customer_id = :customer_id) " ;
 					
 					Map<String, Object> params = new HashMap<>();
 			
 				    params.put("first_name", firstName);
 				    params.put("last_name", lastName);
-				    params.put("phone", phoneNumber);
+				    params.put("phone", phone);
 				    params.put("customer_id", customerID);
 					
 					if (jdbcTemplate.update( sql,  params) == 0) {
@@ -126,7 +127,7 @@ public class DefaultCustomersDao implements CustomersDao{
 							.customerID(customerID)
 							.firstName(firstName)
 							.lastName(lastName)
-							.phoneNumber(phoneNumber)
+							.phone(phone)
 							.build();
 					}
 

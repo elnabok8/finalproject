@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 public class Customer {
 	private int customerID;
-	private String phoneNumber;
+	private String phone;
 	private String firstName;
 	private String lastName;
 

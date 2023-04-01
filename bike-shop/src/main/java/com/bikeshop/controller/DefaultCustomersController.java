@@ -1,8 +1,11 @@
 package com.bikeshop.controller;
 
 import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.bikeshop.entity.Customer;
 import com.bikeshop.service.CustomerService;
 
@@ -37,15 +40,15 @@ public class DefaultCustomersController implements CustomersController {
 		return null;
 	}
 
+
 	@Override
-	public Customer createCustomer(String firstName, String lastName, String phone) {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer updateACustomer(int customerID, String phone, String firstName, String lastName) {
+		return customerService.updateACustomer(customerID, phone, firstName, lastName);
 	}
 
 	@Override
-	public Customer updateACustomer(int customerID, String phoneNumber, String firstName, String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer createCustomer(String firstName, String lastName, String phone) {
+		return customerService.createCustomer(firstName, lastName, phone);
 	}
+
 }

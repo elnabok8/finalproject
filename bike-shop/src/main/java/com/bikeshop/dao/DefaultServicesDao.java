@@ -43,31 +43,31 @@ public class DefaultServicesDao implements ServicesDao {
 				return Services.builder()
 						.serviceID(rs.getInt("service_id"))
 						.customerID(rs.getInt("customer_id"))
-						.description(rs.getString("description"))
-						.cost(rs.getFloat("cost"))
+						.serviceDescription(rs.getString("service_description"))
+						.serviceCost(rs.getFloat("service_cost"))
 						.build();
 			}
 		});
 	}
 	
-	public Services createService (int serviceID, String description, float cost) {
+	public Services createService (int serviceID, String serviceDescription, float serviceCost) {
 		
 		SqlParams sqlparams = new SqlParams();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		sqlparams.sql = ""
-				+" INSERT into services "
-				+ " (description, cost) "
-				+ " VALUES (:description, :cost)" ;
+				+"INSERT into services "
+				+ "(service_description, service_cost) "
+				+ "VALUES (:service_description, :service_cost)" ;
 				
 		
-		sqlparams.source.addValue("description", description);
-		sqlparams.source.addValue("cost", cost);
+		sqlparams.source.addValue("service_description", serviceDescription);
+		sqlparams.source.addValue("service_cost", serviceCost);
 		
 		jdbcTemplate.update(sqlparams.sql,  sqlparams.source, keyHolder);
 		return Services.builder()
 				.serviceID(serviceID)
-				.description(description)
-				.cost(cost)
+				.serviceDescription(serviceDescription)
+				.serviceCost(serviceCost)
 				.build();
 				}
 	
@@ -90,8 +90,8 @@ public class DefaultServicesDao implements ServicesDao {
 				return Services.builder()
 						.serviceID(rs.getInt("service_id"))
 						.customerID(rs.getInt("customer_id"))
-						.description(rs.getString("description"))
-						.cost(rs.getFloat("cost"))
+						.serviceDescription(rs.getString("serviceDescription"))
+						.serviceCost(rs.getFloat("service_cost"))
 						.build();
 			}
 		});
@@ -99,25 +99,25 @@ public class DefaultServicesDao implements ServicesDao {
 	}
 
 	@Override
-	public Services updateAService(int serviceID, String description, float cost) {
+	public Services updateAService(int serviceID, String serviceDescription, float serviceCost) {
 		String sql = ""
 				+ "UPDATE services "
 				+ "SET "
-				+ "description = :description, "
-				+"cost = :cost "
-				+ "WHERE service_id = :service_id" ;
+				+ "service_description = :service_description, service_cost = :service_cost "
+				+ "WHERE (service_id = :service_id) " ;
+	
 		
 		Map <String, Object> params = new HashMap<>();
-		params.put("description", description);
-		params.put("cost", cost);
+		params.put("service_description", serviceDescription);
+		params.put("service_cost", serviceCost);
 		params.put("service_id", serviceID);
 		
 	 jdbcTemplate.update(sql,  params);
 		
 		return Services.builder()
 				.serviceID(serviceID)
-				.description(description)
-				.cost(cost)
+				.serviceDescription(serviceDescription)
+				.serviceCost(serviceCost)
 				.build();
 	}
 
@@ -155,8 +155,8 @@ jdbcTemplate.update(sql,  params);
 		return Services.builder()
 				.serviceID(rs.getInt("service_id"))
 				.customerID(rs.getInt("customer_id"))
-				.description(rs.getString("description"))
-				.cost(rs.getFloat("cost"))
+				.serviceDescription(rs.getString("service_description"))
+				.serviceCost(rs.getFloat("service_cost"))
 				.build();
 		//@formatter:on
 	}

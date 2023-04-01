@@ -13,8 +13,8 @@ public class Services {
 	
 	private int serviceID;
 	private int customerID;
-	private String description;
-	private float cost;
+	private String serviceDescription;
+	private float serviceCost;
 
 
 }

@@ -2,7 +2,6 @@ package com.bikeshop.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
-import com.bikeshop.controller.model.customerDTO;
 import com.bikeshop.entity.Customer;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -22,7 +19,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 
@@ -170,12 +166,32 @@ public interface CustomersController {
 	              responseCode = "500", 
 	              description = "An unplanned error occurred.",  
 	              content = @Content(mediaType = "application/json"))
-	      }
+	          
+	      },
+	      parameters = {
+	          
+          @Parameter(name = "firstName", 
+              allowEmptyValue = false, 
+              required = false, 
+              description = "Customer's first name"),
+          @Parameter(name = "lastName", 
+          allowEmptyValue = false, 
+          required = false, 
+          description = "Customer's last name"),
+          @Parameter(name = "phone", 
+          allowEmptyValue = false, 
+          required = false, 
+          description = "Customer's phone number")
+      }
 	 
 	      )
 @PostMapping
 @ResponseStatus(code = HttpStatus.CREATED)
-Customer createCustomer (@Valid @RequestBody customerDTO customerdto);
+Customer createCustomer (@RequestParam(required = false)
+String firstName, 
+@RequestParam(required = false)
+String lastName,
+@RequestParam (required = false) String phone);
 	      
 @Operation(
 	      summary = "Updates an existing customer",
@@ -213,7 +229,7 @@ Customer createCustomer (@Valid @RequestBody customerDTO customerdto);
 	        	          allowEmptyValue = false, 
 	        	          required = false, 
 	        	          description = "Customer's last name"),
-	        	          @Parameter(name = "phoneNumber", 
+	        	          @Parameter(name = "phone", 
 	        	          allowEmptyValue = false, 
 	        	          required = false, 
 	        	          description = "Customer's phone number")
@@ -225,7 +241,7 @@ Customer createCustomer (@Valid @RequestBody customerDTO customerdto);
 			  @RequestParam (required = false)
 	       int customerID, 
 	      @RequestParam (required = false)
-			  String phoneNumber,
+			  String phone,
 			  @RequestParam (required = false)
 			  String firstName,
 			  @RequestParam (required = false)
