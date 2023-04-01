@@ -1,8 +1,6 @@
 package com.bikeshop.dao;
 
 import java.util.List;
-
-
 import com.bikeshop.entity.Customer;
 
 
@@ -14,7 +12,7 @@ public interface CustomersDao {
 	
 	public List<Customer> fetchCustomerByFirstName(String firstName);
 	
-	Customer createCustomer (String firstName, String lastName, String phoneNumber);
+	Customer createCustomer (String firstName, String lastName, String phone);
 
 	Customer updateACustomer(int customerID, String phoneNumber, String firstName, String lastName);
 }

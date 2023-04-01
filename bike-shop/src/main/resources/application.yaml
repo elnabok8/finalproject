@@ -1,0 +1,10 @@
+spring:
+  datasource:
+     password: bikeshop
+     username: bikeshop
+     url: jdbc:mysql://localhost:3306/bikeshop
+  
+logging:
+   level:
+      root: warn
+      '[com.bikeshop]': debug

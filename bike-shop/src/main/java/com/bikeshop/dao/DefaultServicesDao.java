@@ -1,6 +1,5 @@
 package com.bikeshop.dao;
 
-import static org.mockito.Mockito.description;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -51,23 +50,22 @@ public class DefaultServicesDao implements ServicesDao {
 		});
 	}
 	
-	public Services createService (int serviceID, int customerID, String description, Float cost) {
+	public Services createService (int serviceID, String description, float cost) {
 		
 		SqlParams sqlparams = new SqlParams();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		sqlparams.sql = ""
 				+" INSERT into services "
-				+ " (customer_id, serviceDescription, cost) "
-				+ " VALUES (:customer_fk, :serviceDescription, :cost)" ;
+				+ " (description, cost) "
+				+ " VALUES (:description, :cost)" ;
 				
-		sqlparams.source.addValue("customer_id", customerID);
+		
 		sqlparams.source.addValue("description", description);
 		sqlparams.source.addValue("cost", cost);
 		
 		jdbcTemplate.update(sqlparams.sql,  sqlparams.source, keyHolder);
 		return Services.builder()
 				.serviceID(serviceID)
-				.customerID(customerID)
 				.description(description)
 				.cost(cost)
 				.build();
@@ -101,27 +99,23 @@ public class DefaultServicesDao implements ServicesDao {
 	}
 
 	@Override
-	public Services updateAService(int serviceID, int customerID, String description, float cost) {
+	public Services updateAService(int serviceID, String description, float cost) {
 		String sql = ""
 				+ "UPDATE services "
 				+ "SET "
-				+ "customer_id = :customer_id, "
 				+ "description = :description, "
-				+"cost = :cost, "
+				+"cost = :cost "
 				+ "WHERE service_id = :service_id" ;
 		
 		Map <String, Object> params = new HashMap<>();
-		params.put("customer_id",customerID);
 		params.put("description", description);
 		params.put("cost", cost);
+		params.put("service_id", serviceID);
 		
-		if (jdbcTemplate.update(sql,  params) == 0) {
-			throw new NoSuchElementException("update failed");
-		}
+	 jdbcTemplate.update(sql,  params);
 		
 		return Services.builder()
 				.serviceID(serviceID)
-				.customerID(customerID)
 				.description(description)
 				.cost(cost)
 				.build();
@@ -130,16 +124,21 @@ public class DefaultServicesDao implements ServicesDao {
 	@Override
 	public void deleteService(int serviceID) {
 String sql = ""
-+ "DELETE services "
-		+ "WHERE serviceID = :serviceID";
++ "DELETE FROM services "
+		+ "WHERE service_id = :service_id";
 
+Map <String, Object> params = new HashMap<>();
+params.put("service_id", serviceID);
+
+jdbcTemplate.update(sql,  params);
 
 }
 
 	@Override
-	public List<Services> fetchService(int serviceID,  int customerID, String description, float cost) {
+	public List<Services> fetchService(int serviceID) {
 		String sql = ""
 				+ "SELECT * "
+				+ "FROM services "
 				+ "WHERE service_id = :service_id";
 		
 		Map <String, Object> params = new HashMap<>();
@@ -151,15 +150,17 @@ String sql = ""
 			public Services mapRow(ResultSet rs, int rowNum)
 			throws SQLException {
 				//@formatter:off
+			
 		
 		return Services.builder()
-				.serviceID(serviceID)
-				.customerID(rs.getInt(customerID))
-				.description(rs.getString(description))
-				.cost(rs.getFloat(cost))
+				.serviceID(rs.getInt("service_id"))
+				.customerID(rs.getInt("customer_id"))
+				.description(rs.getString("description"))
+				.cost(rs.getFloat("cost"))
 				.build();
 		//@formatter:on
 	}
 });
 }
+
 }

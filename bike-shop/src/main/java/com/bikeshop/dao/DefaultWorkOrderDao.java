@@ -44,11 +44,11 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 	    String sql = ""
 	        + "SELECT * "
 	        + "FROM work_order "
-	        + "WHERE customerID = :customerID";
+	        + "WHERE customer_id = :customer_id";
 	    // @formatter:on
 	    
 	    Map<String, Object> params = new HashMap<>();
-	    params.put("customer_id", customerID); //why doesn't it like customer ID when it likes it on line 40?
+	    params.put("customer_id", customerID); 
 	    
 	    return jdbcTemplate.query(sql, params,
 	        new RowMapper<>() {
@@ -63,37 +63,26 @@ public class DefaultWorkOrderDao implements WorkOrderDao {
 	          }
 	    });    
 	  }
-			public WorkOrder createAWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService) {
-				SqlParams sqlparams = new SqlParams();
-			    KeyHolder keyHolder = new GeneratedKeyHolder();
-			    sqlparams.sql = ""
+			public WorkOrder createAWorkOrder(int customerID, int serviceID) {
+				
+			   String sql = ""
 			        + "INSERT INTO work_order "
-			        + "(work_order_id, customerID, "
-			        + "time_allotment, cost_Of_Service, serviceID) VALUES"
-			        + "(:bike_serviceID, :customerID,"
-			        + ":timeallotment, :costOfService, :serviceID)";
+			        + "(customer_id, service_id) "
+			       + "VALUES "
+			        + "(:customer_id, :service_id)";
 
-			    sqlparams.source.addValue("work_order_id", workOrderID);
-			    sqlparams.source.addValue("customerID", customerID);
-			    sqlparams.source.addValue("time_allotment", (timeAllotment));
-			    sqlparams.source.addValue("cost_of_service", costOfService);
-			    sqlparams.source.addValue("serviceID", serviceID);
+			   Map<String, Object> params = new HashMap<>();
+			   params.put("customer_id", customerID);
+			   params.put("service_id", serviceID);
+			   
 
 			    
 			    
-			    jdbcTemplate.update(sqlparams.sql, sqlparams.source, keyHolder);
+			    jdbcTemplate.update(sql, params);
 			    return WorkOrder.builder()
-			        .workOrderID(keyHolder.getKey().intValue())
 			        .customerID(customerID)
-			        .timeAllotment(timeAllotment)
-			        .costOfService(costOfService)
 			        .serviceID(serviceID)
 			        .build();
-			}
-
-	  class SqlParams {
-	    String sql;
-	    MapSqlParameterSource source = new MapSqlParameterSource();
 	  }
 
 	  public void deleteWorkOrder(int bikeServiceID) {

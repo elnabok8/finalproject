@@ -65,7 +65,7 @@ public interface WorkOrderController {
 	  @GetMapping
 	  @ResponseStatus(code = HttpStatus.OK)
 	  List<WorkOrder> fetchWorkOrderByCustomerID(
-	  @RequestParam(required = true) int customerID);
+	  @RequestParam(required = false) int customerID);
 	
 
 	@Operation(
@@ -112,7 +112,7 @@ public interface WorkOrderController {
 	    description = "creates a work order",
 	       responses = {
 	    	@ApiResponse(
-            responseCode = "200",
+            responseCode = "201",
 	            description = "work order was created",
 	            content = @Content(
 	                mediaType = "application/json", 
@@ -131,30 +131,21 @@ public interface WorkOrderController {
 	            content = @Content(mediaType = "application/json"))
 },
 	       parameters = {
-	        @Parameter(name = "workOrderID", 
-            allowEmptyValue = false, 
-	            required = false, 
-	            description = "workOrderID"),
+	
 	        @Parameter(name = "customerID", 
             allowEmptyValue = false, 
 	            required = false, 
-	            description = "customerID"),
-	        @Parameter(name = "timeAllotment", 
+	            description = "who's the customer"),
+	        @Parameter(name = "serviceID", 
             allowEmptyValue = false, 
 	            required = false, 
-	            description = "time requirement of service"),
-	        @Parameter(name = "costOfService", 
-            allowEmptyValue = false, 
-	            required = false, 
-	            description = "cost of service"),
+	            description = "the type of service")
 	    })
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED) 
 	WorkOrder createAWorkOrder(
-			@RequestParam int workOrderID,
 			@RequestParam int customerID,
-			@RequestParam int  timeAllotment, 
-			@RequestParam float costOfService);
+			@RequestParam int  serviceID);
 
 	@Operation(
 	  summary = "Returns an updated work order",

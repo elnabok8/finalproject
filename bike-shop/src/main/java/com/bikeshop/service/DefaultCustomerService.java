@@ -15,7 +15,7 @@ public class DefaultCustomerService implements CustomerService {
 	private CustomersDao customersDao;
 
 	
-	
+	@Override
 	public List <Customer> fetchCustomerbyFirstName (String firstName){
 	if(firstName.isEmpty()) {
 		String msg = String.format("We do not have this customer");
@@ -24,8 +24,8 @@ public class DefaultCustomerService implements CustomerService {
 	return customersDao.fetchCustomerByFirstName(firstName);
 }
 	
-	public Customer createCustomer (String firstName, String lastName, String phoneNumber) {
-	return customersDao.createCustomer(firstName, lastName, phoneNumber);
+	public Customer createCustomer (String firstName, String lastName, String phone) {
+	return customersDao.createCustomer(firstName, lastName, phone);
 }
 
 	@Override

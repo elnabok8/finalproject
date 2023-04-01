@@ -24,14 +24,14 @@ public class DefaultWorkOrderController implements WorkOrderController {
 	public WorkOrder updateWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService){
 		return workOrderService.updateWorkOrder(workOrderID, customerID, timeAllotment, costOfService);
 	}
-		@Override
-	public WorkOrder createAWorkOrder(int bikeServiceID, int customerID, int timeAllotment, float costOfService) {
-		return workOrderService.createAWorkOrder(bikeServiceID, customerID, timeAllotment, costOfService);
-	}
 
 @Override
 	public List<WorkOrder> fetchWorkOrderByCustomerID(int customerID) {
 		  return workOrderService.fetchWorkOrderByCustomer(customerID);
+}
+@Override
+public WorkOrder createAWorkOrder(int customerID, int serviceID) {
+	return workOrderService.createAWorkOrder (customerID, serviceID);
 }
 
 }

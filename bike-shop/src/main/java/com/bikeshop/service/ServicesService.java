@@ -10,13 +10,13 @@ import com.bikeshop.entity.Services;
 public interface ServicesService {
 	
 	
-	public Services createService(int serviceID, int customerID, String serviceDescription, float serviceCost);
+	public Services createService(int serviceID, String serviceDescription, float serviceCost);
 
 	public void deleteService(int serviceID);
 
-	public List<Services> fetchService(int serviceID, int customerID, String description, float cost);
+	public List<Services> fetchService(int serviceID);
 
-	public Services updateAService(int serviceID, int customerID, String serviceDescription, float serviceCost);
+	public Services updateAService(int serviceID, String serviceDescription, float serviceCost);
 
 	}
 

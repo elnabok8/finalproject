@@ -12,6 +12,6 @@ public interface WorkOrderService {
 
 	public WorkOrder updateWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService);
 		
-	public WorkOrder createAWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService);
+	public WorkOrder createAWorkOrder(int customerID, int serviceID);
 		  
 }

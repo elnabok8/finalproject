@@ -13,21 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.bikeshop.controller.model.customerDTO;
 import com.bikeshop.entity.Customer;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 @Validated
 @RequestMapping("/customer")
 @OpenAPIDefinition(info = @Info(title = "Customer"), servers = {
-		@Server (url = "Http://localhost8080", description = "Local server.")})
+		@Server (url = "http://localhost:8080", description = "Local server.")})
 public interface CustomersController {
 	
 	@Operation (
@@ -167,31 +169,13 @@ public interface CustomersController {
 	          @ApiResponse(
 	              responseCode = "500", 
 	              description = "An unplanned error occurred.",  
-	              content = @Content(mediaType = "application/json")),
-	      },
-	      parameters = {
-	          @Parameter(name = "firstName", 
-	              allowEmptyValue = false, 
-	              required = false, 
-	              description = "Customer's first name"),
-	          @Parameter(name = "lastName", 
-	          allowEmptyValue = false, 
-	          required = false, 
-	          description = "Customer's last name"),
-	          @Parameter(name = "phone", 
-	          allowEmptyValue = false, 
-	          required = false, 
-	          description = "Customer's phone number")
+	              content = @Content(mediaType = "application/json"))
 	      }
+	 
 	      )
 @PostMapping
 @ResponseStatus(code = HttpStatus.CREATED)
-Customer createCustomer (
-		@RequestParam(required = false)
-		String firstName, 
-		@RequestParam(required = false)
-		String lastName,
-		@RequestParam (required = false) String phone);
+Customer createCustomer (@Valid @RequestBody customerDTO customerdto);
 	      
 @Operation(
 	      summary = "Updates an existing customer",

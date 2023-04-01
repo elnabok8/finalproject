@@ -14,7 +14,7 @@ public interface CustomerService {
 	
 	List <Customer> fetchCustomerbyFirstName (String firstName);
 	
-	Customer createCustomer (String firstName, String lastName, String phoneNumber);
+	Customer createCustomer (String firstName, String lastName, String phone);
 	
 	Customer updateACustomer (int customerID, String phoneNumber, String firstName,  String lastName);
 	

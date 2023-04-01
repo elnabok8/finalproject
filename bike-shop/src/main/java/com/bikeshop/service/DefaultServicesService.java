@@ -13,15 +13,15 @@ public class DefaultServicesService implements ServicesService {
 private ServicesDao servicesDao;
 	
 @Override
-	public Services updateAService(int serviceID, int customerID, String description, float cost) {
+	public Services updateAService(int serviceID, String description, float cost) {
 			
-			return servicesDao.updateAService(serviceID, customerID, description, cost);
+			return servicesDao.updateAService(serviceID, description, cost);
 
 	}
 	@Override
-	public Services createService(int serviceID, int customerID, String serviceDescription, float serviceCost) {
+	public Services createService(int serviceID, String serviceDescription, float serviceCost) {
 	
-		return servicesDao.createService(serviceID, customerID, serviceDescription, serviceCost);
+		return servicesDao.createService(serviceID, serviceDescription, serviceCost);
 	}
 @Override
 	public void deleteService(int serviceID) {
@@ -30,9 +30,9 @@ private ServicesDao servicesDao;
 
 
 @Override
-	public List<Services> fetchService(int serviceID,  int customerID, String description, float cost) {
+	public List<Services> fetchService(int serviceID) {
 	
-		return servicesDao.fetchService(serviceID, customerID, description, cost);
+		return servicesDao.fetchService(serviceID);
 	}
 }
 

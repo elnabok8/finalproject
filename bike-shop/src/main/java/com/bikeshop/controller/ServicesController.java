@@ -58,23 +58,7 @@ public interface ServicesController {
 					name = "serviceID",
 							allowEmptyValue = false,
 							required = false,
-							description = "service id number in database"),
-					@Parameter (
-							name = "customerID",
-									allowEmptyValue = false,
-									required = false,
-									description = "customerID number in database"),
-					@Parameter (
-							name = "description",
-									allowEmptyValue = false,
-									required = false,
-									description = "description of the service"),
-					@Parameter (
-							name = "cost",
-									allowEmptyValue = false,
-									required = false,
-									description = "cost of the service")
-
+							description = "service id number in database")
 
 
 	}
@@ -83,7 +67,7 @@ public interface ServicesController {
 			@ResponseStatus(code = HttpStatus.OK)
 	
 	List<Services> fetchService(
-			@RequestParam(required = false) int serviceID, int customerID, String description, float cost);
+			@RequestParam(required = false) int serviceID);
 	
 	
 	@Operation(
@@ -117,10 +101,7 @@ public interface ServicesController {
 					@Parameter(name = "serviceID",
 							allowEmptyValue = false,
 							description = "The service ID in the database"),
-			}) @Parameter (name = "customerID",
-					allowEmptyValue = false,
-					required = false,
-					description = "custcomerID number in database")
+			}) 
 	@Parameter (name = "serviceDescription",
 			allowEmptyValue = false,
 			required = false,
@@ -134,7 +115,6 @@ public interface ServicesController {
 			@ResponseStatus(code = HttpStatus.OK)
 			Services updateAService(
 					@RequestParam (required = false) int serviceID, 
-					@RequestParam (required = false) int customerID, 
 					@RequestParam (required = false) String serviceDescription,
 					@RequestParam (required = false) float serviceCost);
 
@@ -144,11 +124,11 @@ public interface ServicesController {
 			description = "returns the created service",
 			responses = {
 					@ApiResponse(
-							responseCode = "200",
+							responseCode = "201",
 							description = "a new service was created",
 							content = @Content (
 					mediaType = "application/json",
-					schema = @Schema (implementation = ServicesController.class))),
+					schema = @Schema (implementation = Services.class))),
 					
 					@ApiResponse(
 							responseCode = "400",
@@ -171,11 +151,6 @@ public interface ServicesController {
 							required = false,
 							description = "The ID number of the service"),
 			
-					@Parameter(name = "customerID",
-			allowEmptyValue = false,
-			required = false,
-			description = "available to link to a customer"),
-			
 			@Parameter(name = "serviceDescription",
 			allowEmptyValue = false,
 			required = false,
@@ -192,7 +167,6 @@ public interface ServicesController {
 					@ResponseStatus(code = HttpStatus.CREATED)
 					Services createService (
 							@RequestParam (required = false) int serviceID, 
-							@RequestParam (required = false) int customerID, 
 							@RequestParam (required = false) String serviceDescription,
 							@RequestParam (required = false) float serviceCost);
 	

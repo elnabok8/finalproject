@@ -36,9 +36,8 @@ public class DefaultWorkOrderService  implements WorkOrderService{
 	}
 
 @Override
-	public WorkOrder createAWorkOrder(int workOrderID, int customerID, int timeAllotment, float costOfService) {
-	WorkOrder workOrder = workOrderDao.createAWorkOrder(workOrderID, customerID, timeAllotment, timeAllotment);
-		return workOrder;
+	public WorkOrder createAWorkOrder(int customerID, int serviceID) {
+	return workOrderDao.createAWorkOrder(customerID, serviceID);
 	}
 
 	@Override

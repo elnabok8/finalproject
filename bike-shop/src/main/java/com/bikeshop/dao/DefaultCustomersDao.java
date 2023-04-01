@@ -8,10 +8,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -25,13 +22,42 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 
-public class DefaultCustomersDao {
+public class DefaultCustomersDao implements CustomersDao{
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
-			public Customer createCustomer (String firstName, String lastName, String phoneNumber) {
-				return null;
-			}
+			public Customer createCustomer (String firstName, String lastName, String phone) {
+				
+				SqlParams sqlparams = new SqlParams ();
+				KeyHolder keyholder = new GeneratedKeyHolder();
+				
+				sqlparams.sql  = ""
+						+"INSERT INTO customer "
+						+ "(first_name, last_name, phone) "
+						+ "VALUES (:first_name, :last_name, :phone)" ;
+						
+				//Map<String, Object> params = new HashMap<>();
+//				params.put("first_name", firstName);
+//				params.put("last_name", lastName);
+//				params.put("phone", phone);
+				sqlparams.source.addValue("first_name", firstName);
+				sqlparams.source.addValue("last_name", lastName);
+				sqlparams.source.addValue("phone", phone);
+				
+				jdbcTemplate.update(sqlparams.sql, sqlparams.source, keyholder);
+				return Customer.builder()
+						.customerID(keyholder.getKey().intValue())
+						.firstName(firstName)
+						.lastName(lastName)
+						.phoneNumber(phone)
+						.build();
+						}
+			class SqlParams {
+			    String sql;
+			    MapSqlParameterSource source = new MapSqlParameterSource();
+			  }
+			
+			
 			
 			public List<Customer> fetchACustomer(String firstName, String lastName) {
 				
@@ -76,10 +102,6 @@ public class DefaultCustomersDao {
 					}});
 			}
 				
-				class SqlParams {
-					String sql;
-					MapSqlParameterSource source = new MapSqlParameterSource();
-				}
 				
 				public Customer updateACustomer (int customerID, String phoneNumber, String firstName, String lastName) {
 					
@@ -106,6 +128,12 @@ public class DefaultCustomersDao {
 							.lastName(lastName)
 							.phoneNumber(phoneNumber)
 							.build();
-					};
+					}
+
+				@Override
+				public List<Customer> fetchAllCustomers() {
+					// TODO Auto-generated method stub
+					return null;
+				};
 				
 			}
